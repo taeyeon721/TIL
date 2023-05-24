@@ -1,0 +1,8 @@
+A, B = map(int, input().split())
+A = list(str(A))
+A.reverse()
+A = int("".join(A))
+B = list(str(B))
+B.reverse()
+B = int("".join(B))
+print(max(A, B))
