@@ -1,12 +1,14 @@
-def f(i, j, k):
-    if i == 1 or j == 1:
-        return i % k
-    elif j % 2 == 0:
-        n = f(i, j//2, k)
-        return (n * n) % k
+def power(X, Y):
+    if X == 1:
+        return Y
     else:
-        return (i * f(i, j-1, k)) % k
+        tmp = power(X//2, Y)
+        if X % 2 == 1:
+            return tmp*tmp*Y%C
+        else:
+            return tmp*tmp%C
 
 
 A, B, C = map(int, input().split())
-print(f(A, B, C))
+ans = power(B, A)
+print(ans%C)
