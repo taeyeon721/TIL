@@ -1,22 +1,38 @@
+import math
+
 N = int(input())
-lst = [1]*(N+1)
-for i in range(2, N+1):
-    for j in range(2*i, N+1, i):
-        lst[j] = 0
-prime = []
-for i in range(2, N+1):
-    if lst[i]:
-        prime.append(i)
-ans = 0
-s = 0
-e = 0
-while e <= len(prime):
-    tmp = sum(prime[s:e])
-    if tmp == N:
-        ans += 1
-        e += 1
-    elif tmp > N:
-        s += 1
+
+# 에라토스테네스의 채
+arr = [True]*(N+1)
+arr[0] = False
+arr[1] = False
+
+for num in range(2, int(math.sqrt(N))+1):
+    if arr[num]:
+        for mul in range(num*2, N+1, num):
+            arr[mul] = False
+
+arr = [i for i in range(2, N+1) if arr[i]] + [0]
+
+
+# 투 포인터(두 포인터 모두 왼쪽에서 시작)
+i = 0
+j = 0
+subtotal = arr[i]
+count = 0
+
+while j < len(arr)-1:
+    if subtotal == N:
+        count += 1
+        subtotal -= arr[i]
+        i += 1
+        j += 1
+        subtotal += arr[j]
+    elif subtotal < N:
+        j += 1
+        subtotal += arr[j]
     else:
-        e += 1
-print(ans)
+        subtotal -= arr[i]
+        i += 1
+        
+print(count)
